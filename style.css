@@ -4,6 +4,7 @@ body {
 }
 
 .hide {
+  background-color: green; /* just filler for now because vs code complained about having an empty rule */
   /* I can reenable this later.  But I want the link while in development
   display: none;*/
 }
