@@ -2,3 +2,13 @@ body {
   background-color: white;
   font-family: sans-serif;
 }
+
+.hide {
+  /* I can reenable this later.  But I want the link while in development
+  display: none;*/
+}
+
+/*initialize each of this divs to invisible.  Only one will be shown at a time and it is selected shown via script*/
+#game-content > div {
+  display: none;
+}
