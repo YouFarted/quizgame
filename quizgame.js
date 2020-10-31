@@ -10,7 +10,6 @@ var questions = [
 ];
 
 var timeDiv = document.getElementById("time");
-var highscoreModal = document.getElementById("highscoreModal");
 var questionElement = document.getElementById("question");
 var questionTextElement = document.getElementById("question-text");
 var answerListElement = document.getElementById("answer-list");
