@@ -24,6 +24,8 @@ var instructions = "Try to answer the following code-related questions within th
 
 var timeDiv = document.getElementById("time");
 var questionElement = document.getElementById("question");
+var enterInitialsElement = document.getElementById("enter-initials-for-high-score");
+var doneElement = document.getElementById("done");
 var questionTextElement = document.getElementById("question-text");
 var answerListElement = document.getElementById("answer-list");
 // display=none most of the time except show it briefly after an answer was given as display=initial.
@@ -58,15 +60,34 @@ function numQuestionsLeft()
   return questions.length - currentQuestion;
 }
 
+function setShowDiv(whichmode)
+{
+  questionElement.style.display = "none";
+  enterInitialsElement.style.display = "none";
+  doneElement.style.display = "none";
+
+  switch(whichmode){
+    case "questions": questionElement.style.display = "block"; break;
+    case "enter-initials": enterInitialsElement.style.display = "block"; break;
+    case "done": doneElement.style.display = "block"; break;
+  }
+}
+
+function recordFinalScore()
+{
+  return;
+  setShowDiv("enter-initials");
+}
+
 function nextQuestion()
 {
-  secondsLeft = allowedSecondsPerQuestion;
-  questionElement.style.display = "block";
   currentQuestion++;
   if (currentQuestion >= questions.length)
   {
+    recordFinalScore();
     return false;
   }
+  setShowDiv("questions");
   var question = questions[currentQuestion];
   populateQuestionUI(question);
   return true;
@@ -97,14 +118,10 @@ function hideWasCorrect()
   correctOrWrongSection.style = "display:none";
 }
 
-function registerHighScore()
-{
-}
-
 function endGame()
 {
   clearInterval(interval);
-  registerHighScore();
+  recordFinalScore();
 }
 
 currentQuestion = -1;
