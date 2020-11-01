@@ -17,7 +17,6 @@ var questions = [
     choices: ["Javascript","terminal/bash","for loops","console.log"],
     correct: 3 }, 
 ];
-// right/wrong pops up and hangs out on the bottom of the following question
 
 var title = "Coding Quiz Challenge";
 var instructions = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
@@ -28,11 +27,14 @@ var enterInitialsElement = document.getElementById("enter-initials-for-high-scor
 var doneElement = document.getElementById("done");
 var questionTextElement = document.getElementById("question-text");
 var answerListElement = document.getElementById("answer-list");
+
+// right/wrong pops up and hangs out on the bottom of the following question
+
 // display=none most of the time except show it briefly after an answer was given as display=initial.
 var correctOrWrongSection = document.getElementById("correctOrWrongSection");
 
 // make the text "Correct" or "Wrong"
-var ccorrectOrWrongText = document.getElementById("correctOrWrongText");
+var correctOrWrongText = document.getElementById("correctOrWrongText");
 
 var secondsLeft = 75;
 const allowedSecondsPerQuestion = 5; /*crank this to 30 or so later*/
