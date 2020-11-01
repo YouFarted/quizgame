@@ -20,6 +20,7 @@ var questions = [
 
 var title = "Coding Quiz Challenge";
 var instructions = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
+const penaltyForWrongAnswer = 10;
 
 var timeDiv = document.getElementById("time");
 var questionElement = document.getElementById("question");
@@ -132,7 +133,12 @@ nextQuestion();
 function reactToQuestionClicked(index)
 {
   let thisquestion = questions[currentQuestion];
-  ShowLastQuestionWasCorrect(index == thisquestion.correct);
+  let wasCorrect = (index == thisquestion.correct);
+  if(!wasCorrect)
+  {
+    secondsLeft -= penaltyForWrongAnswer;
+  }
+  ShowLastQuestionWasCorrect(wasCorrect);
   
   nextQuestion();
 }
