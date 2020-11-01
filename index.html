@@ -14,6 +14,14 @@
     <div>Time: <span id="time">not set</span></div>
   </header>
   <div id="game-content">
+    <div id="start-screen">
+      <h1>Coding Quiz Challenge</h1>
+      <p>
+        Try to answer the following code-related questions within the time limit.
+        Keep in mind that incorrect answers will penalize your score/time by ten seconds!
+      </p>
+      <button id="start">Start Quiz</button>
+    </div>
     <div id="question">
       <h1 id="question-text"></h1>
       <ul id="answer-list">
@@ -21,10 +29,10 @@
       <div id="correctOrWrongSection"><hr/><span id="correctOrWrongText">Correct!</span></div>
     </div>
     <div id="enter-initials-for-high-score">
-      <span>New High Score!</span>
+      <span>Record your score!</span>
       <div>
         Enter your initials:
-        <textarea id="initials"></textarea>
+        <input id="initials"></input>
       </div>
     </div>
     <div id="done">all done

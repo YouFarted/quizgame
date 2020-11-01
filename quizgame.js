@@ -18,13 +18,14 @@ var questions = [
     correct: 3 }, 
 ];
 
-var title = "Coding Quiz Challenge";
-var instructions = "Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your score/time by ten seconds!";
 const penaltyForWrongAnswer = 10;
 
 var timeDiv = document.getElementById("time");
 var questionElement = document.getElementById("question");
-var enterInitialsElement = document.getElementById("enter-initials-for-high-score");
+var startScreenElement = document.getElementById("start-screen");
+var startButton = document.getElementById("start");
+var enterInitialsOuterElement = document.getElementById("enter-initials-for-high-score");
+var initialsInputElement = document.getElementById("initials");
 var doneElement = document.getElementById("done");
 var questionTextElement = document.getElementById("question-text");
 var answerListElement = document.getElementById("answer-list");
@@ -66,20 +67,54 @@ function numQuestionsLeft()
 function setShowDiv(whichmode)
 {
   questionElement.style.display = "none";
-  enterInitialsElement.style.display = "none";
+  enterInitialsOuterElement.style.display = "none";
   doneElement.style.display = "none";
+  startScreenElement.style.display = "none";
 
   switch(whichmode){
     case "questions": questionElement.style.display = "block"; break;
-    case "enter-initials": enterInitialsElement.style.display = "block"; break;
+    case "enter-initials": enterInitialsOuterElement.style.display = "block"; break;
     case "done": doneElement.style.display = "block"; break;
+    case "start": startScreenElement.style.display = "block"; break;
   }
 }
 
-function recordFinalScore()
+function showEnterHighscoreUI()
 {
-  return;
+  // stop the clock.  Done is done.  It shouldn't cost score to enter your initials
+  clearInterval(interval);
   setShowDiv("enter-initials");
+}
+
+enterInitialsOuterElement.addEventListener("keydown", function(e){
+  
+  if(e.key === "Enter")
+  {
+    saveScoreAndInitials();
+    // show high scores
+    window.open("./highscores.html");
+  }
+});
+
+function saveScoreAndInitials()
+{
+  let score = secondsLeft;
+  let initials = initialsInputElement.value;
+  addDataToLocalStorage0(initials, score);
+}
+
+
+function addDataToLocalStorage0(initials, score){
+  let newscoreobj = {initials: initials,score: score};
+  let allscores = JSON.parse(localStorage.getItem("allscores"));
+  if(allscores == null || (typeof(allscores) != "object"))
+  {
+    allscores = new Array();
+  }
+  allscores.push(newscoreobj)
+  let jsobjstring = JSON.stringify(allscores);
+
+  localStorage.setItem("allscores", jsobjstring);
 }
 
 function nextQuestion()
@@ -87,7 +122,7 @@ function nextQuestion()
   currentQuestion++;
   if (currentQuestion >= questions.length)
   {
-    recordFinalScore();
+    showEnterHighscoreUI();
     return false;
   }
   setShowDiv("questions");
@@ -123,12 +158,20 @@ function hideWasCorrect()
 
 function endGame()
 {
+  alert("Do I reach this???");
   clearInterval(interval);
-  recordFinalScore();
+  showEnterHighscoreUI();
 }
 
-currentQuestion = -1;
-nextQuestion();
+function startGame() 
+{
+  currentQuestion = -1;
+  nextQuestion();
+}
+
+startButton.addEventListener("click", function(){
+  startGame();
+});
 
 function reactToQuestionClicked(index)
 {
@@ -144,12 +187,13 @@ function reactToQuestionClicked(index)
 }
 
 answerListElement.addEventListener("click", function(event){
-  console.log("click happened on a " + event.target.nodeName)
   if(event.target.nodeName !=="LI")
   {
     return;
   }
   let index = event.target.dataset.index;
-  console.log("you picked index=" + index);
   reactToQuestionClicked(index);
 });
+
+// main
+setShowDiv("start");

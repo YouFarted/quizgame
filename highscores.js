@@ -9,13 +9,6 @@ button.addEventListener("click", function(){
 });
 */
 
-/* okay, fun.  This worked */
-function addTestDataToLocalStorage0(){
-    let jsobj = {a: "a",b:2, c:[1,2,3]};
-    let jsobjstring = JSON.stringify(jsobj);
-    localStorage.setItem("jsobj", jsobjstring);
-}
-
 function addTestDataToLocalStorage(){
     let allscores = new Array();
 
@@ -33,6 +26,12 @@ function addTestDataToLocalStorage(){
 function loadIntoPageTable()
 {
     let allscores = JSON.parse(localStorage.getItem("allscores"));
+
+    if(allscores === null || typeof(allscores) !== "object")
+    {
+        localStorage.setItem("allscores", "[]");
+        return;
+    }
 
     let sortedscores = allscores.sort(function(a,b){return b.score - a.score;});
 
