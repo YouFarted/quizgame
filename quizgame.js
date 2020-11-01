@@ -26,6 +26,11 @@ var timeDiv = document.getElementById("time");
 var questionElement = document.getElementById("question");
 var questionTextElement = document.getElementById("question-text");
 var answerListElement = document.getElementById("answer-list");
+// display=none most of the time except show it briefly after an answer was given as display=initial.
+var correctOrWrongSection = document.getElementById("correctOrWrongSection");
+
+// make the text "Correct" or "Wrong"
+var ccorrectOrWrongText = document.getElementById("correctOrWrongText");
 
 var secondsLeft = 75;
 const allowedSecondsPerQuestion = 5; /*crank this to 30 or so later*/
@@ -36,6 +41,7 @@ timeDiv.textContent = secondsLeft;
 
 var interval = setInterval(function(){
   secondsLeft--;
+  hideWasCorrect();
   if(secondsLeft===0)
   {
     var hasNext = nextQuestion();
@@ -74,9 +80,21 @@ function populateQuestionUI(question)
   {
     var choiceText = question.choices[i];
     let li = document.createElement("li");
+    li.dataset.index = i;
     li.innerText = choiceText;
     answerListElement.appendChild(li);
   }
+}
+
+function ShowLastQuestionWasCorrect(wasCorrect)
+{
+  correctOrWrongSection.style = "display:initial";
+  correctOrWrongText.innerText = wasCorrect ? "Correct" : "Wrong";
+}
+
+function hideWasCorrect()
+{
+  correctOrWrongSection.style = "display:none";
 }
 
 function registerHighScore()
@@ -91,3 +109,22 @@ function endGame()
 
 currentQuestion = -1;
 nextQuestion();
+
+function reactToQuestionClicked(index)
+{
+  let thisquestion = questions[currentQuestion];
+  ShowLastQuestionWasCorrect(index == thisquestion.correct);
+  
+  nextQuestion();
+}
+
+answerListElement.addEventListener("click", function(event){
+  console.log("click happened on a " + event.target.nodeName)
+  if(event.target.nodeName !=="LI")
+  {
+    return;
+  }
+  let index = event.target.dataset.index;
+  console.log("you picked index=" + index);
+  reactToQuestionClicked(index);
+});
