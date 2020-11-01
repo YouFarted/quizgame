@@ -9,6 +9,10 @@ body {
   display: none;*/
 }
 
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
 /*initialize each of this divs to invisible.  Only one will be shown at a time and it is selected shown via script*/
 #game-content > div {
   display: none;
@@ -18,4 +22,13 @@ body {
   padding: 10px;
   color: gray;
   display: inline-block;
+}
+
+/* init to hidden.  This'll be shown/hidden as the correctness of the former question gets briefly shown*/
+#correctOrWrongSection {
+  display: none;
+}
+
+#correctOrWrongText {
+  font-style: italic;
 }
