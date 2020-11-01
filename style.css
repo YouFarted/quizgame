@@ -38,6 +38,11 @@ header div {
   width: 10 px;
 }
 
+#start-screen > * {
+  justify-content: center;
+
+}
+
 a, a:hover, a:focus, a:active {
   text-decoration: none;
   color: indigo;
@@ -58,6 +63,10 @@ a, a:hover, a:focus, a:active {
   display: inline-block;
 }
 
+#start {
+  background-color: indigo;
+  color: white;
+}
 /* init to hidden.  This'll be shown/hidden as the correctness of the former question gets briefly shown*/
 #correctOrWrongSection {
   display: none;
