@@ -18,6 +18,15 @@ body {
   display: none;
 }
 
+#answer-list > li {
+  background-color: indigo;
+  color: white;
+  display: table;
+  padding: 2px 5px;
+  margin: 5px;
+  border-radius: 10%;
+}
+
 #highscores > li > div {
   padding: 10px;
   color: gray;

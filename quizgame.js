@@ -81,7 +81,7 @@ function populateQuestionUI(question)
     var choiceText = question.choices[i];
     let li = document.createElement("li");
     li.dataset.index = i;
-    li.innerText = choiceText;
+    li.innerText = (i+1) + ". " + choiceText;
     answerListElement.appendChild(li);
   }
 }
