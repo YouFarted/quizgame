@@ -92,7 +92,7 @@ enterInitialsOuterElement.addEventListener("keydown", function(e){
   {
     saveScoreAndInitials();
     // show high scores
-    window.open("./highscores.html");
+    window.location.replace("./highscores.html");
   }
 });
 
