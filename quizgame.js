@@ -45,19 +45,7 @@ var currentQuestion = 0;
 
 timeDiv.textContent = secondsLeft;
 
-var interval = setInterval(function(){
-  secondsLeft--;
-  hideWasCorrect();
-  if(secondsLeft===0)
-  {
-    var hasNext = nextQuestion();
-    if(!hasNext)
-    {
-      endGame();
-    }
-  }
-  timeDiv.textContent = secondsLeft;
-}, 1000);
+var interval = null;
 
 function numQuestionsLeft()
 {
@@ -73,7 +61,7 @@ function setShowDiv(whichmode)
 
   switch(whichmode){
     case "questions": questionElement.style.display = "block"; break;
-    case "enter-initials": enterInitialsOuterElement.style.display = "block"; break;
+    case "enter-initials": enterInitialsOuterElement.style.display = "block"; initialsInputElement.focus(); break;
     case "done": doneElement.style.display = "block"; break;
     case "start": startScreenElement.style.display = "block"; break;
   }
@@ -165,13 +153,30 @@ function endGame()
 
 function startGame() 
 {
+  setInterval(function(){
+    secondsLeft--;
+    hideWasCorrect();
+    if(secondsLeft===0)
+    {
+      var hasNext = nextQuestion();
+      if(!hasNext)
+      {
+        endGame();
+      }
+    }
+    timeDiv.textContent = secondsLeft;
+  }, 1000);
+
   currentQuestion = -1;
   nextQuestion();
 }
 
-startButton.addEventListener("click", function(){
-  startGame();
-});
+function registerEvents()
+{
+  startButton.addEventListener("click", function(){
+    startGame();
+  });
+}
 
 function reactToQuestionClicked(index)
 {
@@ -195,5 +200,10 @@ answerListElement.addEventListener("click", function(event){
   reactToQuestionClicked(index);
 });
 
-// main
-setShowDiv("start");
+function main()
+{
+  setShowDiv("start");
+  registerEvents();
+}
+
+main();

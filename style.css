@@ -3,12 +3,6 @@ body {
   font-family: sans-serif;
 }
 
-.hide {
-  background-color: green; /* just filler for now because vs code complained about having an empty rule */
-  /* I can reenable this later.  But I want the link while in development
-  display: none;*/
-}
-
 body {
   font-family: 'Times New Roman', Times, serif;
 }

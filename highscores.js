@@ -2,12 +2,8 @@
 
 //let button = document.getElementById("testbutton");
 let scoreListElement = document.getElementById("highscores");
+let clearScoresButton = document.getElementById("clear-scores");
 
-/*
-button.addEventListener("click", function(){
-    addTestDataToLocalStorage();
-});
-*/
 
 function addTestDataToLocalStorage(){
     let allscores = new Array();
@@ -56,4 +52,25 @@ function addScoreToPage(scorerecord)
     scoreListElement.appendChild(li);
 }
 
-loadIntoPageTable();
+function clearScoresFromPage()
+{
+    scoreListElement.textContent=""; // wipe out the li elements (and owned divs) that were added in the above function
+}
+
+function clearScores()
+{
+    clearScoresFromPage();
+    localStorage.setItem("allscores", "[]");
+    loadIntoPageTable();
+}
+
+function main()
+{
+    clearScoresButton.addEventListener("click", function(e){
+        clearScores();
+    });
+    loadIntoPageTable();
+}
+
+main()
+
